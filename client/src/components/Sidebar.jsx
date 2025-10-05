@@ -3,7 +3,8 @@ import { Home, ClipboardList, LogOut, Menu, X } from "lucide-react";
 import banner from "../assets/banner.png";
 import avatar from "../assets/avatar.jpg";
 import { theme } from "@/config/config";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { clearSelectedLead } from "@/store/leadSlice";
 
 const menuItems = [
     { name: "Dashboard", icon: <Home size={18} />, path: "/dashboard" },
@@ -11,10 +12,13 @@ const menuItems = [
 ];
 
 const Sidebar = () => {
+    const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
     const [isOpen, setIsOpen] = useState(false);
 
-    console.log(user);
+    const handleNavigationClicked = () => {
+        dispatch(clearSelectedLead())
+    }
 
     return (
         <>
@@ -37,7 +41,7 @@ const Sidebar = () => {
                     </div>
                     <ul className="mt-2">
                         {menuItems.map((item) => (
-                            <li key={item.name} className="flex items-center gap-3 px-4 py-2 hover:bg-green-700 rounded-lg cursor-pointer" >
+                            <li key={item.name} onClick={handleNavigationClicked} className="flex items-center gap-3 px-4 py-2 hover:bg-green-700 rounded-lg cursor-pointer" >
                                 {item.icon}
                                 <span>{item.name}</span>
                             </li>
