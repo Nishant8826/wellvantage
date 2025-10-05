@@ -2,13 +2,13 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAYBT16cptU6OnLZSF-u_nyFVEHY8URTDY",
-    authDomain: "fitgym-eb9fb.firebaseapp.com",
-    projectId: "fitgym-eb9fb",
-    storageBucket: "fitgym-eb9fb.firebasestorage.app",
-    messagingSenderId: "771181783219",
-    appId: "1:771181783219:web:00f0c55dedc091c2f468c6",
-    measurementId: "G-3RE2JFY934"
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID,
+    measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
