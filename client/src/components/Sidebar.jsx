@@ -3,6 +3,7 @@ import { Home, ClipboardList, LogOut, Menu, X } from "lucide-react";
 import banner from "../assets/banner.png";
 import avatar from "../assets/avatar.jpg";
 import { theme } from "@/config/config";
+import { useSelector } from "react-redux";
 
 const menuItems = [
     { name: "Dashboard", icon: <Home size={18} />, path: "/dashboard" },
@@ -10,7 +11,10 @@ const menuItems = [
 ];
 
 const Sidebar = () => {
+    const { user } = useSelector((state) => state.auth);
     const [isOpen, setIsOpen] = useState(false);
+
+    console.log(user);
 
     return (
         <>
@@ -45,7 +49,7 @@ const Sidebar = () => {
                     <div className="flex items-center gap-2 mb-2 rounded-lg p-2" style={{ backgroundColor: "#28A74545", border: "#28A7454F" }} >
                         <img src={avatar} alt="User" className="rounded-full h-7 w-7" />
                         <div>
-                            <p className="text-sm font-semibold">David Smith</p>
+                            <p className="text-sm font-semibold">{user?.name ? user.name.charAt(0).toUpperCase() + user.name.slice(1) : ""}</p>
                             <p className="text-xs">Manager</p>
                         </div>
                     </div>
