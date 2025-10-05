@@ -31,8 +31,13 @@ const Leads = () => {
 
     if (loading) {
         return (
-            <div className="flex h-screen items-center justify-center text-lg">
-                Loading Leads...
+            <div className="flex flex-col items-center justify-center h-screen gap-4">
+                <div className="flex space-x-2">
+                    <div className="w-4 h-4 bg-blue-500 rounded-full animate-bounce delay-0"></div>
+                    <div className="w-4 h-4 bg-blue-500 rounded-full animate-bounce delay-150"></div>
+                    <div className="w-4 h-4 bg-blue-500 rounded-full animate-bounce delay-300"></div>
+                </div>
+                <span className="text-lg text-gray-700">Loading Leads...</span>
             </div>
         );
     }
