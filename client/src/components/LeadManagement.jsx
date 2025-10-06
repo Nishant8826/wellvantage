@@ -5,6 +5,7 @@ import { FaWhatsapp, FaEdit, FaCube } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { HiOutlineUserCircle } from "react-icons/hi2";
 import { HiFire, HiSun, HiOutlineStar } from "react-icons/hi";
+import toast from "react-hot-toast";
 
 const LeadManagement = ({ leads }) => {
     const dispatch = useDispatch();
@@ -28,11 +29,44 @@ const LeadManagement = ({ leads }) => {
         dispatch(selectLead(lead));
     }
 
+    const handleAddLead = () => {
+        const lead = {
+            firstName: "",
+            lastName: "",
+            phoneCode: "+91",
+            phone: "",
+            email: "",
+            gender: "Select",
+            dob: "",
+            height: "",
+            heightUnit: "cm",
+            weight: "",
+            weightUnit: "kg",
+            activityLevel: "Very Active",
+            wellnessGoals: "Lose Weight",
+            fitnessFocus: "Gym Workout",
+            gymTime: "Morning",
+            intensity: "Light",
+            medicalConcerns: "Diabetes",
+            experience: "Yes",
+            inquiryDate: new Date().toISOString().split('T')[0],
+            assignedTo: "Ram Mohan",
+            interestLevel: "Warm",
+            followUpStatus: "New Ennquiry",
+            preferredPackage: "Monthly",
+            preferredPTPackage: "10 Sessions",
+            heardAbout: "Social Media",
+            notes: [{ date: new Date().toISOString().split('T')[0], text: "Lead Created." }],
+        }
+        console.log(lead)
+        dispatch(selectLead(lead));
+    }
+
     return (
         <div className="flex-1 bg-gray-50 p-6">
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-semibold">Lead Management</h2>
-                <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">+</button>
+                <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700" onClick={() => handleAddLead()}>+</button>
             </div>
 
             <div className="flex items-center border-b border-gray-200 mb-4">

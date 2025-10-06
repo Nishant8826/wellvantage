@@ -11,30 +11,28 @@ exports.fetchAllLeads = TryCatch(async (req, res, next) => {
 });
 
 exports.updateLead = TryCatch(async (req, res, next) => {
-    const updateData = { ...req.body }; // copy to avoid mutating req.body
-
-    // Remove _id to prevent overwriting
+    const updateData = { ...req.body };
+    const leadId = updateData._id ? updateData._id : null;
     delete updateData._id;
+    let lead;
 
-    const lead = await Leads.findById(req.body._id);
-    if (!lead) return next(new ErrorClass("Lead not found", 404));
-
-    for (const key in updateData) {
-        if (updateData.hasOwnProperty(key)) {
-            // Merge nested objects (like preferences), otherwise assign directly
-            if (typeof updateData[key] === "object" && !Array.isArray(updateData[key])) {
-                lead[key] = { ...lead[key], ...updateData[key] };
-            } else {
-                lead[key] = updateData[key];
+    if (leadId) {
+        lead = await Leads.findById(leadId);
+        if (!lead) return next(new ErrorClass("Lead not found", 404));
+        for (const key in updateData) {
+            if (updateData.hasOwnProperty(key)) {
+                if (typeof updateData[key] === "object" && !Array.isArray(updateData[key])) {
+                    lead[key] = { ...lead[key], ...updateData[key] };
+                } else {
+                    lead[key] = updateData[key];
+                }
             }
         }
+
+        await lead.save();
+    } else {
+        lead = await Leads.create(req.body);
     }
 
-    await lead.save();
-
-    res.status(200).json({
-        success: true,
-        message: "Lead updated successfully",
-        lead,
-    });
+    return res.status(200).json({ success: true, message: `Lead ${leadId ? 'updated' : 'added'} successfully`, lead, });
 });

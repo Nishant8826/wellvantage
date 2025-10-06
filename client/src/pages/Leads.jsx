@@ -46,7 +46,7 @@ const Leads = () => {
         <div className="flex min-h-screen">
             <Sidebar />
             <div className="flex-1">
-                {selectedLead && selectedLead._id ? (
+                {selectedLead ? (
                     <div className='px-6'>
                         <h1 className="text-xl font-bold my-4">Lead Management</h1>
                         <LeadsDetails leadId={selectedLead._id} />

@@ -15,7 +15,10 @@ const LeadsDetails = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData?._id) return;
+    if (!formData.firstName || !formData.lastName) {
+      return toast.error(`${formData.firstName ? 'Last name is required' : 'First name is required'}`)
+    }
+    // if (!formData?._id) return;
 
     try {
       const resp = await updateLead(formData);
